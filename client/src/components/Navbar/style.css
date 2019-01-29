@@ -1,0 +1,45 @@
+.navbar{
+    background-image: url('images/1.jpeg');
+    box-shadow: 0 3px 6px #999, 0 3px 6px #999;
+    width: 100%;
+    position: fixed;
+    margin: 0;
+    z-index: 999;
+}
+.opacity {
+    background-color:rgba(255, 255, 255, 0.5);
+}
+.title{
+    font-size: 40px;
+    text-align: center;
+}
+.search-form{
+    text-align: center;
+    padding: 15px 0;
+}
+.query {
+    padding: 5px;
+    font-size: 16px;
+}
+.search {
+    background: #b70000;
+    color: #fff;
+    font-size: 16px;
+    padding: 5px;
+    border-radius: 5px;
+}
+.search-form label {
+    font-size: 20px;
+    font-weight: bold;
+    text-shadow: 1px 1px #fff;
+    color: #000;
+}
+.links {
+    background: rgba(0,0,0,0.5);
+    padding: 8px;
+    color: #fff;
+    text-align: center;
+}
+.links a {
+    color:#fff;
+}

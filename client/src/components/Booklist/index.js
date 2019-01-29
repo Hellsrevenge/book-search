@@ -10,7 +10,7 @@ class Booklist extends Component {
                     this.props.books ? (
                         this.props.books.map((item, index) => {
                             return (
-                                <Book book={item} key={index}/>
+                                <Book book={item} key={index} saved={false}/>
                             )
                         })
                     ) : null

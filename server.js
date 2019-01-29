@@ -20,29 +20,21 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
-// Define API routes here
-
-// Send every other request to the React app
-// Define any API routes before this runs
 app.get("/api/books", (req, res) => {
-    db.Book
-        .find(req.query)
+    db.Book.find(req.query)
         .sort({ date: -1 })
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(422).json(err));
-
 });
 
-app.post("/api/post", (req, res) => {
-    db.Book
-        .create(req.body)
+app.post("/api/books", (req, res) => {
+    db.Book.create(req.body)
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(422).json(err));
 });
 
 app.delete("/api/books/:id", (req, res) => {
-    db.Book
-        .findById({ _id: req.params.id })
+    db.Book.findById({ _id: req.params.id })
         .then(dbModel => dbModel.remove())
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(422).json(err));
@@ -53,17 +45,27 @@ app.get("/", (req, res) => {
 });
 
 app.get("/api/search/:q", (req, res) => {
-    var url = "https://www.googleapis.com/books/v1/volumes?q=" + req.params.q;
+    var url = "https://www.googleapis.com/books/v1/volumes?maxResults=12&q=" + req.params.q;
     axios.get(url).then(function(response) {
         var result = [];
         for (var i = 0; i < response.data.items.length; i++) {
-            result.push({
+            var book = {
                 title: response.data.items[i].volumeInfo.title,
                 description: response.data.items[i].volumeInfo.description,
-                authors: response.data.items[i].volumeInfo.authors.join(', '),
-                image: response.data.items[i].volumeInfo.imageLinks.thumbnail,
+                authors: "",
+                image: "",
                 link: response.data.items[i].volumeInfo.infoLink
-            })
+            };
+
+            if (typeof response.data.items[i].volumeInfo.authors != 'undefined') {
+                book['authors'] = response.data.items[i].volumeInfo.authors.join(', ');
+            }
+
+            if (typeof response.data.items[i].volumeInfo.imageLinks != 'undefined') {
+                book['image'] = response.data.items[i].volumeInfo.imageLinks.thumbnail;
+            }
+
+            result.push(book);
         }
 
         res.json(result);

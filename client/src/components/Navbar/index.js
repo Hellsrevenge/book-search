@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+//import { Link } from 'react-dom'
 import Booklist from "../Booklist";
 import "./style.css";
 
@@ -31,16 +32,20 @@ class NavBar extends Component {
         return (
             <div>
                 <nav className="navbar">
+                    <div className="opacity">
+                        <div className="links">
+                            <a >Home</a> | <a href="/saved">Saved</a>
+                        </div>
                     <div className="title">Book Google Search</div>
-
                     <div className="search-form">
                         <form onSubmit={this.handleSubmit}>
                             <label>
-                                Name:
-                                <input type="text" value={this.state.value} onChange={this.handleChange}/>
+                                Search:
+                                <input className="query" type="text" size="50" value={this.state.value} onChange={this.handleChange}/>
                             </label>
-                            <input type="submit" value="Submit"/>
+                            <input className="search" type="submit" value="Submit"/>
                         </form>
+                    </div>
                     </div>
                 </nav>
                 <Booklist books={this.state.books} query={this.state.value}/>
